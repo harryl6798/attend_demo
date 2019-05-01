@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:table_calendar/table_calendar.dart';
 import './join_class.dart';
+import './class_info.dart';
 
 class MyPage extends StatelessWidget {
   @override
@@ -93,8 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   leading: Icon(icons[index]),
                   title: Text(titles[index]),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: ()
-                    {print('wow');},
+                  onTap: (){
+                    debugPrint('button class pressed');
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return ClassInfo(titles[index]);
+                    }));
+                  },
+
                 ),
               );
             },
