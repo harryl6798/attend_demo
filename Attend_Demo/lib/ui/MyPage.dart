@@ -2,6 +2,7 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:table_calendar/table_calendar.dart';
+import './join_class.dart';
 
 class MyPage extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class MyPage extends StatelessWidget {
     return MaterialApp(
       title: 'Circular Bottom Navigation Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.cyan,
       ),
       home: MyHomePage(title: 'circular_bottom_navigation'),
     );
@@ -30,9 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blue),
-    new TabItem(Icons.layers, "Reports", Colors.red),
-    new TabItem(Icons.settings, "Settings", Colors.cyan),
+    new TabItem(Icons.home, "Home", Colors.cyan[300]),
+//    new TabItem(Icons.layers, "Reports", Colors.red),
+    new TabItem(Icons.settings, "Settings", Colors.cyan[600]),
   ]);
 
   CircularBottomNavigationController _navigationController;
@@ -60,19 +61,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget bodyContainer() {
     Color selectedColor = tabItems[selectedPos].color;
     Widget thing;
-    final titles = ['bike', 'boat', 'bus', 'car',
-    'railway', 'run', 'subway', 'transit', 'walk', 'test'];
+    Widget thingButton;
 
-    final icons = [Icons.directions_bike, Icons.directions_boat,
-    Icons.directions_bus, Icons.directions_car, Icons.directions_railway,
-    Icons.directions_run, Icons.directions_subway, Icons.directions_transit,
-    Icons.directions_walk, Icons.directions_walk];
+    final titles = ['EECS 168', 'MATH 125', 'ENGL 101'];
+
+    final icons = [Icons.code, Icons.functions,
+    Icons.border_color ];
     switch (selectedPos) {
       case 0:
+          thingButton = new FloatingActionButton(
+            onPressed: (){
+              debugPrint('button pressed');
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                return JoinClass();
+              }));
+            },
+            backgroundColor: Colors.amber[400],
+            //if you set mini to true then it will make your floating button small
+            mini: false,
+            child: new Icon(Icons.add),
+          );
+
           thing = new ListView.builder(
             //physics: FixedExtentScrollPhysics(),
             itemCount: titles.length,
-
             itemBuilder: (context, index) {
 
               return Card( //
@@ -89,26 +101,20 @@ class _MyHomePageState extends State<MyHomePage> {
           );
 
         break;
+//      case 1:
+////        slogan = "Find, Check, Use";
+//        thing = null;
+//        break;
       case 1:
-//        slogan = "Find, Check, Use";
-        thing = null;
-        break;
-      case 2:
 //        slogan = "Receive, Review, Rip";
+        thingButton = null;
         thing = null;
 
         break;
     }
 
     return new Scaffold(
-
-      floatingActionButton: new FloatingActionButton(
-        onPressed: null,
-        backgroundColor: Colors.green,
-        //if you set mini to true then it will make your floating button small
-        mini: false,
-        child: new Icon(Icons.add),
-      ),
+        floatingActionButton: thingButton,
         body: new Container(
         width: double.infinity,
         height: double.infinity,
@@ -138,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget topNav() {
     return Banner(
-      message: "Lilly is a nerd",
+      message: "",
       location: BannerLocation.topStart,
     );
   }
