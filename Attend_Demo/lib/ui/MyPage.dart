@@ -31,9 +31,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<TabItem> tabItems = List.of([
     new TabItem(Icons.home, "Home", Colors.blue),
-    new TabItem(Icons.search, "Search", Colors.orange),
     new TabItem(Icons.layers, "Reports", Colors.red),
-    new TabItem(Icons.notifications, "Notifications", Colors.cyan),
+    new TabItem(Icons.settings, "Settings", Colors.cyan),
   ]);
 
   CircularBottomNavigationController _navigationController;
@@ -50,7 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: <Widget>[
           Padding(child: bodyContainer(), padding: EdgeInsets.only(bottom: bottomNavBarHeight),),
-          Align(alignment: Alignment.bottomCenter, child: bottomNav())
+          Align(alignment: Alignment.bottomCenter, child: bottomNav()),
+          Align(alignment: Alignment.topCenter, child: topNav())
+
         ],
       ),
     );
@@ -59,40 +60,62 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget bodyContainer() {
     Color selectedColor = tabItems[selectedPos].color;
     Widget thing;
+    final titles = ['bike', 'boat', 'bus', 'car',
+    'railway', 'run', 'subway', 'transit', 'walk', 'test'];
+
+    final icons = [Icons.directions_bike, Icons.directions_boat,
+    Icons.directions_bus, Icons.directions_car, Icons.directions_railway,
+    Icons.directions_run, Icons.directions_subway, Icons.directions_transit,
+    Icons.directions_walk, Icons.directions_walk];
     switch (selectedPos) {
       case 0:
-          thing = RaisedButton(
-            onPressed: null,
-            child: const Text('Disabled Button'),
+          thing = new ListView.builder(
+            //physics: FixedExtentScrollPhysics(),
+            itemCount: titles.length,
+
+            itemBuilder: (context, index) {
+
+              return Card( //
+                //                         <-- Card widget
+                child: ListTile(
+                  leading: Icon(icons[index]),
+                  title: Text(titles[index]),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: ()
+                    {print('wow');},
+                ),
+              );
+            },
           );
+
         break;
       case 1:
 //        slogan = "Find, Check, Use";
+        thing = null;
         break;
       case 2:
 //        slogan = "Receive, Review, Rip";
-        break;
-      case 3:
-//        slogan = "Noise, Panic, Ignore";
+        thing = null;
+
         break;
     }
 
-    return GestureDetector(
-      child: Container(
+    return new Scaffold(
+
+      floatingActionButton: new FloatingActionButton(
+        onPressed: null,
+        backgroundColor: Colors.green,
+        //if you set mini to true then it will make your floating button small
+        mini: false,
+        child: new Icon(Icons.add),
+      ),
+        body: new Container(
         width: double.infinity,
         height: double.infinity,
         color: selectedColor,
-        child: Center(
-          child: thing
-        ),
+        padding: new EdgeInsets.all(32.0),
+        child: thing
       ),
-      onTap: () {
-        if (_navigationController.value == tabItems.length - 1) {
-          _navigationController.value = 0;
-        } else {
-          _navigationController.value++;
-        }
-      },
     );
   }
 
@@ -111,6 +134,15 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+
+
+  Widget topNav() {
+    return Banner(
+      message: "Lilly is a nerd",
+      location: BannerLocation.topStart,
+    );
+  }
+
 
   @override
   void dispose() {

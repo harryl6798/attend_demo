@@ -78,6 +78,8 @@ class _LoginPageState extends State<LoginPage>
                           height: 141.0,
                           fit: BoxFit.fill,
                           image: new AssetImage('assets/img/attend.png')),
+
+
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 0.0),
@@ -295,31 +297,34 @@ class _LoginPageState extends State<LoginPage>
                 margin: EdgeInsets.only(top: 170.0),
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Theme.Colors.loginGradientStart,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                    BoxShadow(
-                      color: Theme.Colors.loginGradientEnd,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                  ],
-                  gradient: new LinearGradient(
-                      colors: [
-                        Theme.Colors.loginGradientEnd,
-                        Theme.Colors.loginGradientStart
-                      ],
-                      begin: const FractionalOffset(0.2, 0.2),
-                      end: const FractionalOffset(1.0, 1.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
+                  color: Colors.white,
+                  border: Border.all(width: 2.0, color: const Color(0xFF000000))),
+//                  boxShadow: <BoxShadow>[
+//                    BoxShadow(
+//                      color: Theme.Colors.loginGradientStart,
+//                      offset: Offset(1.0, 6.0),
+//                      blurRadius: 20.0,
+//                    ),
+//                    BoxShadow(
+//                      color: Theme.Colors.loginGradientEnd,
+//                      offset: Offset(1.0, 6.0),
+//                      blurRadius: 20.0,
+//                    ),
+//                  ],
+//                  gradient: new LinearGradient(
+//                      colors: [
+//                        Colo
+//                      ],
+//                      begin: const FractionalOffset(0.2, 0.2),
+//                      end: const FractionalOffset(1.0, 1.0),
+//                      stops: [0.0, 1.0],
+//                      tileMode: TileMode.clamp),
+//                ),
+
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
                     splashColor: Theme.Colors.loginGradientEnd,
+                    child: new InkWell(
                     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -327,14 +332,15 @@ class _LoginPageState extends State<LoginPage>
                       child: Text(
                         "LOGIN",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.blueAccent,
                             fontSize: 25.0,
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () =>
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyPage(),)))
-                        
+
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyPage(),))
+                ),
+              ),
               ),
             ],
           ),
@@ -578,28 +584,30 @@ class _LoginPageState extends State<LoginPage>
                 margin: EdgeInsets.only(top: 340.0),
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Theme.Colors.loginGradientStart,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                    BoxShadow(
-                      color: Theme.Colors.loginGradientEnd,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                  ],
-                  gradient: new LinearGradient(
-                      colors: [
-                        Theme.Colors.loginGradientEnd,
-                        Theme.Colors.loginGradientStart
-                      ],
-                      begin: const FractionalOffset(0.2, 0.2),
-                      end: const FractionalOffset(1.0, 1.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
+                    color: Colors.white,
+                    border: Border.all(width: 2.0, color: const Color(0xFF000000))),
+//                  boxShadow: <BoxShadow>[
+//                    BoxShadow(
+//                      color: Theme.Colors.loginGradientStart,
+//                      offset: Offset(1.0, 6.0),
+//                      blurRadius: 20.0,
+//                    ),
+//                    BoxShadow(
+//                      color: Theme.Colors.loginGradientEnd,
+//                      offset: Offset(1.0, 6.0),
+//                      blurRadius: 20.0,
+//                    ),
+//                  ],
+//                  gradient: new LinearGradient(
+//                      colors: [
+//                        Theme.Colors.loginGradientEnd,
+//                        Theme.Colors.loginGradientStart
+//                      ],
+//                      begin: const FractionalOffset(0.2, 0.2),
+//                      end: const FractionalOffset(1.0, 1.0),
+//                      stops: [0.0, 1.0],
+//                      tileMode: TileMode.clamp),
+//                ),
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
                     splashColor: Theme.Colors.loginGradientEnd,
@@ -610,7 +618,7 @@ class _LoginPageState extends State<LoginPage>
                       child: Text(
                         "SIGN UP",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.blueAccent,
                             fontSize: 25.0,
                             fontFamily: "WorkSansBold"),
                       ),
