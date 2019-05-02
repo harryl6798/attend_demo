@@ -8,15 +8,20 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import './login_page.dart';
 
 class MyPage extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return
+    MaterialApp(
+
       title: 'Circular Bottom Navigation Demo',
       theme: ThemeData(
         primarySwatch: Colors.cyan,
       ),
       home: MyHomePage(title: 'circular_bottom_navigation'),
     );
+
   }
 }
 
@@ -25,6 +30,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
+
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -142,15 +148,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   CircularBottomNavigationController _navigationController;
 
+//  Future<bool> _onBackPressed(){
+//    return (showDialog(
+//        context: context,
+//        builder: (context)=>AlertDialog(title: Text("Are you sure you want to exit?"),
+//            actions:<Widget>[
+//              FlatButton(
+//                  child: Text("No"),
+//                  onPressed: ()=>Navigator.pop(context, false)),
+//              FlatButton(
+//                child: Text("Yes"),
+//                onPressed: ()=>Navigator.pop(context, true),
+//              )])));
+//  }
+
   @override
   void initState() {
     super.initState();
     _navigationController = new CircularBottomNavigationController(selectedPos);
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new WillPopScope(
+        onWillPop: () => _exitApp(context),
+    child: new Scaffold(
       body: Stack(
         children: <Widget>[
           Padding(child: bodyContainer(), padding: EdgeInsets.only(bottom: bottomNavBarHeight),),
@@ -159,7 +182,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
         ],
       ),
+    )
     );
+  }
+
+  Future<bool> _exitApp(BuildContext context) {
+    return showDialog(
+      context: context,
+      child: new AlertDialog(
+        title: new Text('Do you want to exit this application?'),
+        content: new Text('We hate to see you leave...'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No'),
+          ),
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: new Text('Yes'),
+          ),
+        ],
+      ),
+    ) ??
+        false;
   }
 
   Widget bodyContainer() {
@@ -223,6 +268,8 @@ class _MyHomePageState extends State<MyHomePage> {
         thing = new Container(
           margin: const EdgeInsets.symmetric(vertical: 200.0),
           child: new StaggeredGridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+
 
             crossAxisCount: 2,
             crossAxisSpacing: 12.0,
@@ -247,12 +294,15 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
     }
 
-    return new Scaffold(
+    return new WillPopScope(
+        onWillPop: () => _exitApp(context),
+    child: Scaffold(
       appBar: AppBar(
         title: Text('Attend.io'),
       ),
         floatingActionButton: thingButton,
         body: thing,
+    ),
     );
   }
 

@@ -28,7 +28,7 @@ class ClassInfoState extends State<ClassInfo> {
             child: ListView(
               children: <Widget>[
                 // First element
-
+                new Text("Professor: Emilia Paz")
                 // Second element
 
               ],

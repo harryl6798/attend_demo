@@ -29,7 +29,7 @@ class JoinClassState extends State<JoinClass>with TickerProviderStateMixin {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text('Join Class'),
+        title: Text('Class'),
       ),
 
       body: Padding(
@@ -109,7 +109,7 @@ class JoinClassState extends State<JoinClass>with TickerProviderStateMixin {
   setUpButtonChild() {
     if (_state == 0) {
       return Text(
-        "Click Here",
+        "Join Class",
         style: const TextStyle(
           color: Colors.white,
           fontSize: 16,

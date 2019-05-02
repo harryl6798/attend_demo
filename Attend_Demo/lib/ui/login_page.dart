@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:the_gorgeous_login/style/theme.dart' as Theme;
-import 'package:the_gorgeous_login/utils/bubble_indication_painter.dart';
+import 'package:Attend/style/theme.dart' as Theme;
+import 'package:Attend/utils/bubble_indication_painter.dart';
 import './MyPage.dart';
 import './tab_item.dart';
+import 'dart:async';
+
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -14,8 +16,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
 
+  _getRequests()async{
+
+  }
+  int _state = 0;
+  Animation _animation;
+  AnimationController _controller;
+  GlobalKey _globalKey = GlobalKey();
+  double _width = double.maxFinite;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final FocusNode myFocusNodeEmailLogin = FocusNode();
@@ -294,11 +304,11 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 170.0),
-                decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  color: Colors.white,
-                  border: Border.all(width: 2.0, color: const Color(0xFF000000))),
+                margin: EdgeInsets.only(top: 170.0, left: 50, right: 50),
+//                decoration: new BoxDecoration(
+//                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+//                  color: Colors.white,
+//                  border: Border.all(width: 2.0, color: const Color(0xFF000000))),
 //                  boxShadow: <BoxShadow>[
 //                    BoxShadow(
 //                      color: Theme.Colors.loginGradientStart,
@@ -321,26 +331,36 @@ class _LoginPageState extends State<LoginPage>
 //                      tileMode: TileMode.clamp),
 //                ),
 
-                child: MaterialButton(
-                    highlightColor: Colors.transparent,
-                    splashColor: Theme.Colors.loginGradientEnd,
-                    child: new InkWell(
-                    //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 42.0),
-                      child: Text(
-                        "LOGIN",
-                        style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: 25.0,
-                            fontFamily: "WorkSansBold"),
+                child: new PhysicalModel(
+                  elevation: 8,
+                  shadowColor: Colors.lightGreenAccent,
+                  color: Colors.lightGreen,
+                  borderRadius: BorderRadius.circular(25),
+                  child: Container(
+                    key: _globalKey,
+                    height: 48,
+                    width: _width,
+                    child: RaisedButton(
+                      animationDuration: Duration(milliseconds: 1000),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
                       ),
-                    ),
+                      padding: EdgeInsets.all(0),
+                      child: setUpButtonChild2(),
+                      onPressed: () {
+                        setState(() {
+                          if (_state == 0) {
+                            animateButton();
+                          }
+                        })
+                        ;
 
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyPage(),))
+                      },
+                      elevation: 4,
+                      color: Colors.lightGreen,
+                    ),
+                  ),
                 ),
-              ),
               ),
             ],
           ),
@@ -383,7 +403,7 @@ class _LoginPageState extends State<LoginPage>
                     "Built for RVCC",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18.0,
+                        fontSize: 30.0,
                         fontFamily: "WorkSansMedium"),
                   ),
                 ),
@@ -405,29 +425,29 @@ class _LoginPageState extends State<LoginPage>
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-
-                Padding(
-                  padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                  child: Text(
-                    "NOT FINAL PRODUCT DEMO",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontFamily: "WorkSansMedium",
-                        fontStyle: FontStyle.italic
-                    ),
-
-                  ),
-                ),
-
-              ],
-            ),
-          )
+//          Padding(
+//            padding: EdgeInsets.only(top: 10.0),
+//            child: Row(
+//              mainAxisAlignment: MainAxisAlignment.center,
+//              children: <Widget>[
+//
+//                Padding(
+//                  padding: EdgeInsets.only(left: 5.0, right: 5.0),
+//                  child: Text(
+//                    "NOT FINAL PRODUCT DEMO",
+//                    style: TextStyle(
+//                        color: Colors.white,
+//                        fontSize: 18.0,
+//                        fontFamily: "WorkSansMedium",
+//                        fontStyle: FontStyle.italic
+//                    ),
+//
+//                  ),
+//                ),
+//
+//              ],
+//            ),
+//          )
         ],
       ),
     );
@@ -581,11 +601,11 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 340.0),
-                decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    color: Colors.white,
-                    border: Border.all(width: 2.0, color: const Color(0xFF000000))),
+                margin: EdgeInsets.only(top: 340.0, left: 50, right: 50),
+//                decoration: new BoxDecoration(
+//                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+//                    color: Colors.white,
+//                    border: Border.all(width: 2.0, color: Colors.white)),
 //                  boxShadow: <BoxShadow>[
 //                    BoxShadow(
 //                      color: Theme.Colors.loginGradientStart,
@@ -608,23 +628,35 @@ class _LoginPageState extends State<LoginPage>
 //                      stops: [0.0, 1.0],
 //                      tileMode: TileMode.clamp),
 //                ),
-                child: MaterialButton(
-                    highlightColor: Colors.transparent,
-                    splashColor: Theme.Colors.loginGradientEnd,
-                    //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 42.0),
-                      child: Text(
-                        "SIGN UP",
-                        style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: 25.0,
-                            fontFamily: "WorkSansBold"),
-                      ),
-                    ),
-                    onPressed: () =>
-                        showInSnackBar("SignUp button pressed")),
+//                child: new PhysicalModel(
+//                  elevation: 8,
+//                  shadowColor: Colors.lightGreenAccent,
+//                  color: Colors.lightGreen,
+//                  borderRadius: BorderRadius.circular(25),
+//                  child: Container(
+//                    key: _globalKey,
+//                    height: 48,
+//                    width: _width,
+//                    child: RaisedButton(
+//                      animationDuration: Duration(milliseconds: 1000),
+//                      shape: RoundedRectangleBorder(
+//                        borderRadius: BorderRadius.circular(25),
+//                      ),
+//                      padding: EdgeInsets.all(0),
+//                      child: setUpButtonChild(),
+//                      onPressed: () {
+//                        setState(() {
+//                          if (_state == 0) {
+//                            animateButton();
+//                          }
+//                        });
+//
+//                      },
+//                      elevation: 4,
+//                      color: Colors.lightGreen,
+//                    ),
+//                  ),
+//                ),
               ),
             ],
           ),
@@ -660,4 +692,91 @@ class _LoginPageState extends State<LoginPage>
       _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
   }
+
+  setUpButtonChild() {
+    if (_state == 0) {
+      return Text(
+        "SIGN UP",
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+        ),
+      );
+    } else if (_state == 1) {
+      return SizedBox(
+        height: 36,
+        width: 36,
+        child: CircularProgressIndicator(
+          value: null,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        ),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+
+  setUpButtonChild2() {
+    if (_state == 0) {
+//      return SizedBox(
+//          height: 48,
+//          width: _width,
+//          child:
+ return Text(
+        "SIGN IN",
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+        ),
+      );
+
+    } else if (_state == 1) {
+      return SizedBox(
+        height: 36,
+        width: 36,
+        child: CircularProgressIndicator(
+          value: null,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        ),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+  void animateButton() {
+    double initialWidth = _globalKey.currentContext.size.width;
+
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
+
+    _animation = Tween(begin: 0.0, end: 1).animate(_controller)
+      ..addListener(() {
+        setState(() {
+          _width = initialWidth - ((initialWidth - 48) * _animation.value);
+        });
+      });
+    _controller.forward();
+
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 3000), () {
+      setState(() {
+        _state = 2;
+        //Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyPage()));
+        Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=> MyPage()),).then((value){setState(() {
+          {
+            _state =0;
+            _controller = null;
+            _animation = null;
+            setUpButtonChild2();
+          }});
+        });
+
+      });
+    });
+
+  }
 }
+
