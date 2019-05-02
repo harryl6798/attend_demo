@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Padding(child: bodyContainer(), padding: EdgeInsets.only(bottom: bottomNavBarHeight),),
           Align(alignment: Alignment.bottomCenter, child: bottomNav()),
-          Align(alignment: Alignment.topCenter, child: topNav())
+          //Align(alignment: Alignment.topCenter, child: topNav())
 
         ],
       ),
@@ -223,6 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
         thing = new Container(
           margin: const EdgeInsets.symmetric(vertical: 200.0),
           child: new StaggeredGridView.count(
+
             crossAxisCount: 2,
             crossAxisSpacing: 12.0,
             mainAxisSpacing: 12.0,
@@ -247,6 +248,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return new Scaffold(
+      appBar: AppBar(
+        title: Text('Attend.io'),
+      ),
         floatingActionButton: thingButton,
         body: thing,
     );
@@ -269,12 +273,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
-  Widget topNav() {
-    return Banner(
-      message: "",
-      location: BannerLocation.topStart,
-    );
-  }
+
 
 
   @override
