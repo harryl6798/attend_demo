@@ -4,6 +4,8 @@ import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:table_calendar/table_calendar.dart';
 import './join_class.dart';
 import './class_info.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import './login_page.dart';
 
 class MyPage extends StatelessWidget {
   @override
@@ -30,6 +32,107 @@ class _MyHomePageState extends State<MyHomePage> {
   int selectedPos = 0;
 
   double bottomNavBarHeight = 60;
+
+  Material MyItems(IconData icon, String heading, int color){
+    return Material(
+      color: Colors.white,
+      elevation: 14.0,
+      shadowColor: Color(0x802196F3),
+      borderRadius: BorderRadius.circular(24.0),
+      child: Center(
+        child:Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  // 1. Text
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(heading,
+                          style:TextStyle(
+                            color: new Color(color),
+                            fontSize: 20.0,
+                          )),
+                    ),
+                  ),
+
+                  // 2. Icon
+                  Material(
+                    color: new Color(color),
+                    borderRadius: BorderRadius.circular(24.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: IconButton(
+                        icon: new Icon(icon),
+                        color: Colors.white,
+                        iconSize: 30.0,
+                      ),
+                    ),
+                  ),
+
+                ],
+              )
+            ],
+          ),
+        )
+      ),
+    );
+  }
+
+  Material MyItemsLogout(IconData icon, String heading, int color){
+    return Material(
+      color: Colors.white,
+      elevation: 14.0,
+      shadowColor: Color(0x802196F3),
+      borderRadius: BorderRadius.circular(24.0),
+      child: Center(
+          child:Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // 1. Text
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(heading,
+                            style:TextStyle(
+                              color: new Color(color),
+                              fontSize: 20.0,
+                            )),
+                      ),
+                    ),
+
+                    // 2. Icon
+                    Material(
+                      color: new Color(color),
+                      borderRadius: BorderRadius.circular(24.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: IconButton(
+                          icon: new Icon(icon),
+                          color: Colors.white,
+                          iconSize: 30.0,
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage(),)),
+                        ),
+                      ),
+                    ),
+
+                  ],
+                )
+              ],
+            ),
+          )
+      ),
+    );
+  }
 
   List<TabItem> tabItems = List.of([
     new TabItem(Icons.home, "Home", Colors.cyan[300]),
@@ -63,6 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Color selectedColor = tabItems[selectedPos].color;
     Widget thing;
     Widget thingButton;
+    Widget header;
 
     final titles = ['EECS 168', 'MATH 125', 'ENGL 101'];
 
@@ -83,51 +187,68 @@ class _MyHomePageState extends State<MyHomePage> {
             child: new Icon(Icons.add),
           );
 
-          thing = new ListView.builder(
-            //physics: FixedExtentScrollPhysics(),
-            itemCount: titles.length,
-            itemBuilder: (context, index) {
-
-              return Card( //
-                //                         <-- Card widget
-                child: ListTile(
-                  leading: Icon(icons[index]),
-                  title: Text(titles[index]),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: (){
-                    debugPrint('button class pressed');
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return ClassInfo(titles[index]);
-                    }));
-                  },
-
-                ),
-              );
-            },
+          thing = new Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: selectedColor,
+              padding: new EdgeInsets.all(32.0),
+              child: new ListView.builder(
+                //physics: FixedExtentScrollPhysics(),
+                itemCount: titles.length,
+                itemBuilder: (context, index) {
+                  return Card( //
+                    child: ListTile(
+                      leading: Icon(icons[index]),
+                      title: Text(titles[index]),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                      onTap: (){
+                        debugPrint('button class pressed');
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return ClassInfo(titles[index]);
+                        }));
+                      },
+                    ),
+                  );
+                },
+              )
           );
 
         break;
-//      case 1:
-////        slogan = "Find, Check, Use";
-//        thing = null;
-//        break;
+
+
+      // SETTINGS
       case 1:
-//        slogan = "Receive, Review, Rip";
+
         thingButton = null;
-        thing = null;
+        thing = new Container(
+          margin: const EdgeInsets.symmetric(vertical: 200.0),
+          child: new StaggeredGridView.count(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12.0,
+            mainAxisSpacing: 12.0,
+            padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
+            children: <Widget>[
+              MyItems(Icons.person,"Edit Profile",4280731354),
+              MyItems(Icons.security,"Privacy",4280731354),
+              MyItems(Icons.email,"Contact",4280731354),
+              MyItemsLogout(Icons.keyboard_backspace,"Logout",4280731354),
+            ],
+            staggeredTiles: [
+              StaggeredTile.extent(1,150),
+              StaggeredTile.extent(1,150),
+              StaggeredTile.extent(1,150),
+              StaggeredTile.extent(1,150),
+            ],
+          )
+        );
+
 
         break;
     }
 
     return new Scaffold(
         floatingActionButton: thingButton,
-        body: new Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: selectedColor,
-        padding: new EdgeInsets.all(32.0),
-        child: thing
-      ),
+        body: thing,
     );
   }
 
